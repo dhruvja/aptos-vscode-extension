@@ -12,7 +12,8 @@
   }
 
   $(document).ready(function () {
-    let x = 0;
+    let args = 0;
+    let type_args = 0;
 
     $("#test").click(function () {
       func("test");
@@ -34,21 +35,66 @@
 
     $("#add").click(function () {
       $("#sub").after(`
-      <div class="form-inline" id="fields${x}">
-        <input placeholder='argument name' style="width:49%" id="value${x}" />
+      <div class="form-inline" id="fields${args}">
+        <input placeholder='argument name' style="width:49%" id="value${args}" />
         &nbsp;
         &nbsp;
         &nbsp;
         &nbsp;
-        <input placeholder='argument type' style="width:49%" id="type${x}" align="right"/>
+        <input placeholder='argument type' style="width:49%" id="type${args}" align="right"/>
       </div>`);
-      x++;
-      console.log(x);
+      args++;
+      console.log(args);
     });
 
     $("#sub").click(function () {
-      x--;
-      $(`#fields${x}`).hide();
+      args--;
+      $(`#fields${args}`).hide();
+    });
+
+    $("#addtype").click(function () {
+      $("#subtype").after(
+        `<input placeholder='argument name' id="typevalue${type_args}" />`
+      );
+      type_args++;
+      console.log(type_args);
+    });
+
+    $("#subtype").click(function () {
+      type_args--;
+      $(`#typevalue${type_args}`).hide();
+    });
+
+    $("#run").click(function () {
+      let i = 0;
+      let arguments = [];
+      let typeArguments = [];
+      for (i = 0; i < args; i++) {
+        let obj = {};
+        obj.name = $(`#value${i}`).val();
+        obj.type = $(`#type${i}`).val();
+        arguments.push(obj);
+      }
+
+      for (i = 0; i < type_args; i++) {
+        let value = $(`#typevalue${i}`).val();
+        typeArguments.push(value);
+      }
+
+      let profile = $("#profile").val();
+      let functionName = $("#function").val();
+
+      let res = {};
+      res.profile = profile;
+      res.functionName = functionName;
+      res.args = arguments;
+      res.typeArguments = typeArguments;
+
+      console.log(res);
+      vscode.postMessage({
+        command: "run",
+        payload: res,
+      });
     });
   });
 

@@ -41,6 +41,34 @@ export function activate(context: vscode.ExtensionContext) {
               terminal.show();
               terminal.sendText("aptos move publish");
               return;
+            case "run": 
+              const space = " ";
+              let command = "aptos move run" + space;
+              const profile = "--profile" + space + message.payload.profile + space;
+              const functionId = "--function-id default::" + message.payload.functionName + space;
+              let args = "";
+              message.payload.args.forEach((arg: any) => {
+                args += arg.type + ":" + arg.name + space; 
+              });
+              let type_args = "";
+              message.payload.typeArguments.forEach((arg: any) => {
+                if (arg === "") 
+                  return
+                type_args += arg; 
+              });
+              if(type_args !== "") {
+                type_args = "--type-args " + type_args;
+              }
+              const argument = "--args" + space + args;
+              command += profile + functionId + argument + type_args;
+              console.log(command);
+              terminal = vscode.window.activeTerminal;
+              if (terminal === undefined) {
+                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+              }
+              terminal.show();
+              terminal.sendText(command); 
+              return;
           }
         },
         undefined,

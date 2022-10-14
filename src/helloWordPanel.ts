@@ -165,9 +165,15 @@ export class HelloWordPanel {
             <br />
             <label>Enter Function Name Eg: Ticket::init_venue</label>
             <input id="function" name="args" placeholder="ModuleName::function_name"/>
-            <h3>Arguments</h3>
+            <h3>Function Arguments</h3>
             <button id="add" style="width: 10%">Add</button>
             <button id="sub" style="width: 10%">Delete</button>
+            <h3>Type Arguments</h3>
+            <h5>Leave empty if there isnt any</h5>
+            <h5>Eg: 0x1::aptos_coin::AptosCoin</h5>
+            <button id="addtype" style="width: 10%">Add</button>
+            <button id="subtype" style="width: 10%">Delete</button>
+            <button id="run"> Run </button>
             <button id="compile"> Compile </button>
             <button id="test"> Test </button>
             <button id="publish"> Publish </button>
