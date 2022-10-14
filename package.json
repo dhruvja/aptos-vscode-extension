@@ -18,7 +18,8 @@
     "commands": [
       {
         "command": "movecli.helloWorld",
-        "title": "Hello World"
+        "category": "MoveCli",
+        "title": "Run Commands"
       },
       {
         "command": "movecli.askQuestion",

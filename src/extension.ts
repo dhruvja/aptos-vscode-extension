@@ -33,6 +33,14 @@ export function activate(context: vscode.ExtensionContext) {
               terminal.show();
               terminal.sendText("aptos move test");
               return;
+            case "publish":
+              terminal = vscode.window.activeTerminal;
+              if (terminal === undefined) {
+                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+              }
+              terminal.show();
+              terminal.sendText("aptos move publish");
+              return;
           }
         },
         undefined,

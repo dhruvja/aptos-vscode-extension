@@ -28,7 +28,7 @@ export class HelloWordPanel {
     // Otherwise, create a new panel.
     const panel = vscode.window.createWebviewPanel(
       HelloWordPanel.viewType,
-      "VSinder",
+      "Aptos Move",
       column || vscode.ViewColumn.One,
       {
         // Enable javascript in the webview
@@ -138,6 +138,9 @@ export class HelloWordPanel {
     const stylesMainUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
     );
+    const jquery = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "media", "jquery-3.6.1.min.js")
+    )
     // const cssUri = webview.asWebviewUri(
     //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/swiper.css")
     // );
@@ -149,20 +152,25 @@ export class HelloWordPanel {
 			<html lang="en">
 			<head>
 				<meta charset="UTF-8">
-				<!--
-					Use a content security policy to only allow loading images from https or from our extension directory,
-					and only allow scripts that have a specific nonce.
-        -->
         <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${stylesResetUri}" rel="stylesheet">
 				<link href="${stylesMainUri}" rel="stylesheet">
+        <script nonce="${nonce}" src=${jquery}></script>
 			</head>
         <body>
-            <h1>Hello world</h1>
-            <input />
-            <button class="compile" id="compile"> Compile </button>
-            <button class="test" id="test"> Test </button>
+            <h1>Aptos Move Publisher</h1>
+            <label>Enter Profile</label>
+            <input id="profile" name="args" placeholder="profile name"/>
+            <br />
+            <label>Enter Function Name Eg: Ticket::init_venue</label>
+            <input id="function" name="args" placeholder="ModuleName::function_name"/>
+            <h3>Arguments</h3>
+            <button id="add" style="width: 10%">Add</button>
+            <button id="sub" style="width: 10%">Delete</button>
+            <button id="compile"> Compile </button>
+            <button id="test"> Test </button>
+            <button id="publish"> Publish </button>
 		</body>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</html>`;
