@@ -1,8 +1,10 @@
 {
   "name": "movecli",
-  "displayName": "movecli",
-  "description": "running commands with an ui",
-  "version": "0.0.1",
+  "displayName": "Aptos Move Publisher",
+  "description": "running aptos move commands with an ui",
+  "publisher": "DhruvDJain",
+  "icon": "aptos.png", 
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.72.0"
   },
