@@ -10,14 +10,22 @@
       text: "Hello world",
     });
   }
-
+  
   $(document).ready(function () {
     let args = 0;
     let type_args = 0;
 
+    $(".fundblock").hide();
+
     $("#test").click(function () {
       func("test");
     });
+
+    $("#test1").click(function () {
+      console.log("This is from the test");
+      func("test");
+    });
+
 
     $("#compile").click(function () {
       func("compile");
@@ -27,11 +35,33 @@
       func("publish");
     });
 
+    $("#runOnWindow").click(function () {
+      func("runOnWindow");
+    });
+
+    $("#clean").click(function () {
+      func("clean");
+    });
+
+    $("#fundopener").click(function() {
+      $(".fundblock").toggle();
+    });
+
+    $("#fundWallet").click(function() {
+      const accountAddress = $("#accountAddress").val();
+      vscode.postMessage({
+        command: "fund",
+        payload: accountAddress,
+      }); 
+    });
+
     $("#argsbutton").click(function () {
       const a = $("#args").val();
       $(this).after("<input placeholder='enter the args' />");
       console.log(a);
     });
+
+    ['address','bool','hex','hex_array','string','u8','u64','u128','raw']
 
     $("#add").click(function () {
       $("#sub").after(`
@@ -41,7 +71,18 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <input placeholder='argument type' style="width:49%" id="type${args}" align="right"/>
+        <input list="types" placeholder='argument type' style="width:49%" id="type${args}" align="right">
+          <datalist id="types">
+            <option value="address">
+            <option value="bool">
+            <option value="hex">
+            <option value="hex_array">
+            <option value="string">
+            <option value="u8">
+            <option value="u64">
+            <option value="u128">
+            <option value="raw">
+          </datalist>
       </div>`);
       args++;
       console.log(args);

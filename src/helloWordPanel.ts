@@ -174,9 +174,14 @@ export class HelloWordPanel {
             <button id="addtype" style="width: 10%">Add</button>
             <button id="subtype" style="width: 10%">Delete</button>
             <button id="run"> Run </button>
-            <button id="compile"> Compile </button>
+            <!-- <button id="compile"> Compile </button>
             <button id="test"> Test </button>
             <button id="publish"> Publish </button>
+            <button id="fundopener"> Fund </button>
+            <div class="fundblock">
+            <input id="accountAddress" placeholder="Enter the account address" /> <br />
+            <button id="fundWallet">Fund Wallet with Faucet</button>
+            <div>--> 
 		</body>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</html>`;

@@ -4,7 +4,8 @@
   "description": "running aptos move commands with an ui",
   "publisher": "DhruvDJain",
   "icon": "aptos.png", 
-  "version": "0.0.2",
+  "version": "0.0.5",
+  "repository": "https://github.com/dhruvja/aptos-vscode-extension",
   "engines": {
     "vscode": "^1.72.0"
   },
@@ -13,19 +14,40 @@
   ],
   "activationEvents": [
     "onCommand:movecli.helloWorld",
-    "onCommand:movecli.askQuestion"
+    "onCommand:movecli.askQuestion",
+    "onView:aptosmove-sidebar"
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aptosmove-sidebar-view",
+          "title": "Aptos Move Publisher",
+          "icon": "aptos.png"
+        }
+      ]
+    },
+    "views": {
+      "aptosmove-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "aptosmove-sidebar",
+          "name": "Aptos Move Publisher",
+          "icon": "aptos.png",
+          "contextualTitle": "Aptos Move Publisher"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "movecli.helloWorld",
-        "category": "MoveCli",
+        "category": "Aptos Move Publisher",
         "title": "Run Commands"
       },
       {
         "command": "movecli.askQuestion",
-        "category": "MoveCli",
+        "category": "Aptos Move Publisher",
         "title": "Ask Question"
       }
     ]

@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import { HelloWordPanel } from "./helloWordPanel";
 import * as cp from "child_process";
+import { SidebarProvider } from "./sideBarProvider";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -40,6 +41,15 @@ export function activate(context: vscode.ExtensionContext) {
               }
               terminal.show();
               terminal.sendText("aptos move publish");
+              return;
+
+            case "fund":
+              terminal = vscode.window.activeTerminal;
+              if (terminal === undefined) {
+                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+              }
+              terminal.show();
+              terminal.sendText(`aptos account fund-with-faucet --account ${message.payload}`);
               return;
             case "run": 
               const space = " ";
@@ -90,6 +100,14 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage("Sad to hear that from you");
       }
     })
+  );
+
+  const sidebarProvider = new SidebarProvider(context.extensionUri);
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(
+      "aptosmove-sidebar",
+      sidebarProvider
+    )
   );
 }
 
