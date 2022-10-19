@@ -231,6 +231,7 @@ export class HelloWordPanel {
             <h5>Can even use profile names like default::Ticket::init_venue or 9893409...909::Ticket::init_venue</h5>
             <input id="function" name="args" placeholder="Profile::ModuleName::function_name"/>
             <h3>Function Arguments</h3>
+            <h5>You can add strings with spaces or colons, it will convert into hex and then post in the cli.</h5>
             <button id="add" style="width: 10%">Add</button>
             <button id="sub" style="width: 10%">Delete</button>
             <h3>Type Arguments</h3>

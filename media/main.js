@@ -10,6 +10,14 @@
       text: "Hello world",
     });
   }
+
+  function toHex(str) {
+    var result = '';
+    for (var i=0; i<str.length; i++) {
+      result += str.charCodeAt(i).toString(16);
+    }
+    return result;
+  }
   
   $(document).ready(function () {
     let args = 0;
@@ -28,6 +36,7 @@
 
 
     $("#compile").click(function () {
+      console.log(toHex("dhruv d jain"));
       func("compile");
     });
 
@@ -114,6 +123,10 @@
         let obj = {};
         obj.name = $(`#value${i}`).val();
         obj.type = $(`#type${i}`).val();
+        if (obj.type === "string") {
+          obj.type = "hex";
+          obj.name = toHex(obj.name);
+        }
         arguments.push(obj);
       }
 

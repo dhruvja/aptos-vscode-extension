@@ -7,6 +7,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 ## [0.0.6] - 2022-10-19
+
+- Automatically converts string to hex if it has spaces or any special characters which dont work in CLI
 - So the data entered on the webview would persist when the window is changed.
 
 ## [0.0.5] - 2022-10-16
