@@ -4,86 +4,95 @@ import * as vscode from "vscode";
 import { HelloWordPanel } from "./helloWordPanel";
 import * as cp from "child_process";
 import { SidebarProvider } from "./sideBarProvider";
+import { LocalStorageService } from "./utils";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "movecli" is now active!');
 
+  const versionKey = "123";
+  
+
   context.subscriptions.push(
     vscode.commands.registerCommand("movecli.helloWorld", () => {
-      let panel = HelloWordPanel.createOrShow(context.extensionUri);
+      let panel = HelloWordPanel.createOrShow(context.extensionUri, context);
 
-      panel.webview.onDidReceiveMessage(
-        async (message) => {
-          let terminal;
-          switch (message.command) {
-            case "compile":
-              terminal = vscode.window.activeTerminal;
-              if (terminal === undefined) {
-                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
-              }
-              terminal.show();
-              terminal.sendText("aptos move compile");
-              return;
-            case "test":
-              terminal = vscode.window.activeTerminal;
-              if (terminal === undefined) {
-                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
-              }
-              terminal.show();
-              terminal.sendText("aptos move test");
-              return;
-            case "publish":
-              terminal = vscode.window.activeTerminal;
-              if (terminal === undefined) {
-                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
-              }
-              terminal.show();
-              terminal.sendText("aptos move publish");
-              return;
+    //   panel.webview.onDidReceiveMessage(
+    //     async (message) => {
+    //       let terminal;
+    //       switch (message.command) {
+    //         case "compile":
+    //           terminal = vscode.window.activeTerminal;
+    //           if (terminal === undefined) {
+    //             terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+    //           }
+    //           terminal.show();
+    //           terminal.sendText("aptos move compile");
+    //           return;
+    //         case "test":
+    //           terminal = vscode.window.activeTerminal;
+    //           if (terminal === undefined) {
+    //             terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+    //           }
+    //           terminal.show();
+    //           terminal.sendText("aptos move test");
+    //           return;
+    //         case "publish":
+    //           terminal = vscode.window.activeTerminal;
+    //           if (terminal === undefined) {
+    //             terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+    //           }
+    //           terminal.show();
+    //           terminal.sendText("aptos move publish");
+    //           return;
 
-            case "fund":
-              terminal = vscode.window.activeTerminal;
-              if (terminal === undefined) {
-                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
-              }
-              terminal.show();
-              terminal.sendText(`aptos account fund-with-faucet --account ${message.payload}`);
-              return;
-            case "run": 
-              const space = " ";
-              let command = "aptos move run" + space;
-              const profile = "--profile" + space + message.payload.profile + space;
-              const functionId = "--function-id default::" + message.payload.functionName + space;
-              let args = "";
-              message.payload.args.forEach((arg: any) => {
-                args += arg.type + ":" + arg.name + space; 
-              });
-              let type_args = "";
-              message.payload.typeArguments.forEach((arg: any) => {
-                if (arg === "") 
-                  return
-                type_args += arg; 
-              });
-              if(type_args !== "") {
-                type_args = "--type-args " + type_args;
-              }
-              const argument = "--args" + space + args;
-              command += profile + functionId + argument + type_args;
-              console.log(command);
-              terminal = vscode.window.activeTerminal;
-              if (terminal === undefined) {
-                terminal = vscode.window.createTerminal(`Ext Terminal #3`);
-              }
-              terminal.show();
-              terminal.sendText(command); 
-              return;
-          }
-        },
-        undefined,
-        context.subscriptions
-      );
+    //         case "fund":
+    //           terminal = vscode.window.activeTerminal;
+    //           if (terminal === undefined) {
+    //             terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+    //           }
+    //           terminal.show();
+    //           terminal.sendText(
+    //             `aptos account fund-with-faucet --account ${message.payload}`
+    //           );
+    //           return;
+    //         case "run":
+    //           const space = " ";
+    //           let command = "aptos move run" + space;
+    //           const profile =
+    //             "--profile" + space + message.payload.profile + space;
+    //           const functionId =
+    //             "--function-id default::" +
+    //             message.payload.functionName +
+    //             space;
+    //           let args = "";
+    //           message.payload.args.forEach((arg: any) => {
+    //             args += arg.type + ":" + arg.name + space;
+    //           });
+    //           let type_args = "";
+    //           message.payload.typeArguments.forEach((arg: any) => {
+    //             if (arg === "") return;
+    //             type_args += arg;
+    //           });
+    //           if (type_args !== "") {
+    //             type_args = "--type-args " + type_args;
+    //           }
+    //           const argument = "--args" + space + args;
+    //           command += profile + functionId + argument + type_args;
+    //           console.log(command);
+    //           terminal = vscode.window.activeTerminal;
+    //           if (terminal === undefined) {
+    //             terminal = vscode.window.createTerminal(`Ext Terminal #3`);
+    //           }
+    //           terminal.show();
+    //           terminal.sendText(command);
+    //           return;
+    //       }
+    //     },
+    //     undefined,
+    //     context.subscriptions
+    //   );
     })
   );
 

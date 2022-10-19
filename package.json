@@ -3,8 +3,8 @@
   "displayName": "Aptos Move Publisher",
   "description": "running aptos move commands with an ui",
   "publisher": "DhruvDJain",
-  "icon": "aptos.png", 
-  "version": "0.0.5",
+  "icon": "aptos.png",
+  "version": "0.0.6",
   "repository": "https://github.com/dhruvja/aptos-vscode-extension",
   "engines": {
     "vscode": "^1.72.0"
@@ -88,5 +88,8 @@
     "typescript": "^4.8.4",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "@vscode/webview-ui-toolkit": "^1.1.0"
   }
 }
